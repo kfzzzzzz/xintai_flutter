@@ -62,6 +62,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_boost:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "4.2.1"
+      resolved-ref: f277bc093c7a7b39ada9a4802f556c14e3b266ce
+      url: "https://github.com/alibaba/flutter_boost.git"
+    source: git
+    version: "3.0.0"
   flutter_lints:
     dependency: "direct dev"
     description:
