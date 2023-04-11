@@ -20,7 +20,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static const platform = MethodChannel('samples.flutter.dev/battery');
+  static const platform = MethodChannel('xinTai/MethodChannel');
   int _counter = 0;
   String _batteryLevel = 'Unknown battery level.';
 
