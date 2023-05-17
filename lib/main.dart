@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
 import 'package:xintai_flutter/GPTPage/GPTPage.dart';
+import 'package:xintai_flutter/XTHomePage/XTHomePage.dart';
 import 'package:xintai_flutter/riveTest/riveTest.dart';
 import 'package:xintai_flutter/testPage/MyHomePage.dart';
 
@@ -35,6 +36,10 @@ class _MyAppState extends State<MyApp> {
       return PageRouteBuilder<dynamic>(
           settings: settings,
           pageBuilder: (_, __, ___) => const SimpleStateMachine());
+    },
+    'XTHomePage': (settings, uniqueId) {
+      return PageRouteBuilder<dynamic>(
+          settings: settings, pageBuilder: (_, __, ___) => const XTHomePage());
     }
   };
 
@@ -42,8 +47,7 @@ class _MyAppState extends State<MyApp> {
     FlutterBoostRouteFactory? func = routerMap[settings.name!];
     if (func == null) {
       return PageRouteBuilder<dynamic>(
-          settings: settings,
-          pageBuilder: (_, __, ___) => const SimpleStateMachine());
+          settings: settings, pageBuilder: (_, __, ___) => const XTHomePage());
     }
     return func(settings, uniqueId);
   }
