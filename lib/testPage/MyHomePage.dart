@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rive/rive.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -83,6 +84,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Container(
+              height: 400,
+              width: 375,
+              child: RiveAnimation.network(
+                  'https://cdn.rive.app/animations/vehicles.riv',
+                  artboard: 'Truck'),
+            ),
             const Text(
               'You have pushed the button this many times:',
             ),

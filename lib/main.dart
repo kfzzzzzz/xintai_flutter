@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
 import 'package:xintai_flutter/GPTPage/GPTPage.dart';
+import 'package:xintai_flutter/riveTest/riveTest.dart';
 import 'package:xintai_flutter/testPage/MyHomePage.dart';
 
 void main() {
@@ -29,13 +30,20 @@ class _MyAppState extends State<MyApp> {
     'GPTPage': (settings, uniqueId) {
       return PageRouteBuilder<dynamic>(
           settings: settings, pageBuilder: (_, __, ___) => const GPTPage());
+    },
+    'riveTest': (settings, uniqueId) {
+      return PageRouteBuilder<dynamic>(
+          settings: settings,
+          pageBuilder: (_, __, ___) => const SimpleStateMachine());
     }
   };
 
   Route<dynamic>? routeFactory(RouteSettings settings, String? uniqueId) {
     FlutterBoostRouteFactory? func = routerMap[settings.name!];
     if (func == null) {
-      return null;
+      return PageRouteBuilder<dynamic>(
+          settings: settings,
+          pageBuilder: (_, __, ___) => const SimpleStateMachine());
     }
     return func(settings, uniqueId);
   }
