@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
+import 'package:xintai_flutter/utils/XTScreenAdaptation.dart';
 
 class XTHomePage extends StatefulWidget {
   const XTHomePage({super.key});
@@ -43,21 +44,37 @@ class _XTHomePageState extends State<XTHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    XTScreenAdaptation.init(context);
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
-        child: Stack(
-          children: [
-            GestureDetector(
-              onTap: _hitTree,
-              onLongPressStart: _longPressStartHitTree,
-              onLongPressEnd: _longPressEndHitTree,
-              child: RiveAnimation.asset(
-                'assets/homeTree.riv',
-                onInit: _onRiveInit,
+        child: GestureDetector(
+          onTap: _hitTree,
+          onLongPressStart: _longPressStartHitTree,
+          onLongPressEnd: _longPressEndHitTree,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 180.px,
               ),
-            ),
-          ],
+              SizedBox(
+                height: 400.px,
+                child: RiveAnimation.asset(
+                  'assets/homeTree.riv',
+                  onInit: _onRiveInit,
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
+              SizedBox(height: 20.px),
+              Text(
+                '暂无更多气人内容，请帮助小树成长～',
+                style: TextStyle(
+                    color: const Color.fromARGB(255, 242, 46, 98),
+                    fontSize: 18.sp,
+                    fontFamily: 'PingFang_semibold'),
+              ),
+            ],
+          ),
         ),
       ),
     );
