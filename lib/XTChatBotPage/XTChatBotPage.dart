@@ -70,12 +70,12 @@ class _XTChatBotPageState extends State<XTChatBotPage>
                 child: Stack(
                   children: [
                     Positioned(
-                      left: 10.px,
+                      right: 10.px,
                       top: MediaQuery.of(context).padding.top + 10.px,
                       child: IconButton(
                         iconSize: 40.px,
-                        icon: Icon(Icons.switch_camera),
-                        color: Colors.pink,
+                        icon: const Icon(Icons.brightness_high_rounded),
+                        color: Colors.pink.shade400,
                         onPressed: () {
                           BlocProvider.of<XtChatBotPageBloc>(context).add(
                             const XtChatBotChangeSenceEvent(),
@@ -91,7 +91,90 @@ class _XTChatBotPageState extends State<XTChatBotPage>
                         width: screenWidth - 20.px,
                         child: CustomPaint(
                           painter: MyPainter(),
-                          child: Text('哈哈哈哈哈哈'),
+                          child: Stack(children: [
+                            Positioned(
+                                left: 32.px,
+                                bottom: 8.px,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    print("KFZTEST:点击聊天");
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Lottie.asset(
+                                        "assets/chatBotNext.json",
+                                        width: 20.px,
+                                        height: 20.px,
+                                        repeat: true,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      Text(
+                                        '点击聊天...',
+                                        style: TextStyle(
+                                            color: Colors.pink.shade800,
+                                            fontSize: 10.sp,
+                                            fontFamily: 'PingFang_semibold'),
+                                      )
+                                    ],
+                                  ),
+                                )),
+                            Positioned(
+                                right: 30.px,
+                                bottom: 8.px,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    print("KFZTEST:点击继续");
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Lottie.asset(
+                                        "assets/chatBotNext.json",
+                                        width: 20.px,
+                                        height: 20.px,
+                                        repeat: true,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      Text(
+                                        '点击继续...',
+                                        style: TextStyle(
+                                            color: Colors.pink.shade800,
+                                            fontSize: 10.sp,
+                                            fontFamily: 'PingFang_semibold'),
+                                      )
+                                    ],
+                                  ),
+                                )),
+                            Padding(
+                              padding: EdgeInsets.all(10.px),
+                              child: RichText(
+                                text: TextSpan(
+                                  style: DefaultTextStyle.of(context).style,
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: '答:  ',
+                                      style: TextStyle(
+                                        color: Colors.pink.shade600,
+                                        fontSize: 14.sp,
+                                        fontFamily: 'PingFang_semibold',
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          '你为什么今天晚上不一起吃饭你为什么今天晚上不一起吃饭你为什么今天晚上不一起吃饭你为什么今天晚上不一起吃饭你为什么今天晚上不一起吃饭你为什么今天晚上不一起吃饭',
+                                      style: TextStyle(
+                                        color: Colors.pink.shade600,
+                                        fontSize: 14.sp,
+                                        fontFamily: 'PingFang_regular',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.center,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
+                          ]),
                         ),
                       ),
                     ),
@@ -104,6 +187,7 @@ class _XTChatBotPageState extends State<XTChatBotPage>
                           width: 60.px,
                           height: 60.px,
                           repeat: false,
+                          fit: BoxFit.fill,
                           controller: _clickAnimationController,
                         ),
                       ),
@@ -123,7 +207,7 @@ class MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Color.fromARGB(255, 232, 147, 169).withOpacity(0.5) // 浅灰色半透明
+      ..color = Color.fromARGB(255, 244, 208, 218).withOpacity(0.5) // 浅灰色半透明
       ..style = PaintingStyle.fill;
 
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);

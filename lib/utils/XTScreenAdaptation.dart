@@ -14,9 +14,10 @@ class XTScreenAdaptation {
   static init(BuildContext context, {bool? setTablet}) {
     ScreenUtil.init(
       context,
-      designSize: MediaQuery.of(context).orientation == Orientation.portrait
-          ? const Size(375, 812)
-          : const Size(812, 375),
+      designSize: const Size(375, 812), //暂时只支持竖屏
+      // designSize: MediaQuery.of(context).orientation == Orientation.portrait
+      //     ? const Size(375, 812)
+      //     : const Size(812, 375),
     );
 
     isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
