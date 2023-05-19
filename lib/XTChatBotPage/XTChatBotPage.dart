@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:rive/rive.dart';
 import 'package:xintai_flutter/utils/XTScreenAdaptation.dart';
 
 import 'bloc/xt_chat_bot_page_bloc.dart';
@@ -26,6 +27,12 @@ class _XTChatBotPageState extends State<XTChatBotPage>
       vsync: this,
       duration: const Duration(milliseconds: 700),
     );
+  }
+
+  void _onRiveInit(Artboard artboard) {
+    final controller =
+        StateMachineController.fromArtboard(artboard, 'State Machine 1');
+    artboard.addController(controller!);
   }
 
   @override
@@ -69,6 +76,16 @@ class _XTChatBotPageState extends State<XTChatBotPage>
                 ),
                 child: Stack(
                   children: [
+                    Positioned(
+                      child: SizedBox(
+                        //height: 400.px,
+                        child: RiveAnimation.asset(
+                          'assets/ChatBot.riv',
+                          onInit: _onRiveInit,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                    ),
                     Positioned(
                       right: 10.px,
                       top: MediaQuery.of(context).padding.top + 10.px,
