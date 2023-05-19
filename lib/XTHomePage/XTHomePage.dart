@@ -55,7 +55,7 @@ class _XTHomePageState extends State<XTHomePage> {
           child: Column(
             children: [
               SizedBox(
-                height: 180.px,
+                height: 100.px,
               ),
               SizedBox(
                 height: 400.px,

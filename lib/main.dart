@@ -5,6 +5,8 @@ import 'package:xintai_flutter/XTHomePage/XTHomePage.dart';
 import 'package:xintai_flutter/riveTest/riveTest.dart';
 import 'package:xintai_flutter/testPage/MyHomePage.dart';
 
+import 'XTChatBotPage/XTChatBotPage.dart';
+
 void main() {
   CustomFlutterBinding();
   runApp(const MyApp());
@@ -40,6 +42,11 @@ class _MyAppState extends State<MyApp> {
     'XTHomePage': (settings, uniqueId) {
       return PageRouteBuilder<dynamic>(
           settings: settings, pageBuilder: (_, __, ___) => const XTHomePage());
+    },
+    'XTChatBotPage': (settings, uniqueId) {
+      return PageRouteBuilder<dynamic>(
+          settings: settings,
+          pageBuilder: (_, __, ___) => const XTChatBotPage());
     }
   };
 
@@ -47,7 +54,8 @@ class _MyAppState extends State<MyApp> {
     FlutterBoostRouteFactory? func = routerMap[settings.name!];
     if (func == null) {
       return PageRouteBuilder<dynamic>(
-          settings: settings, pageBuilder: (_, __, ___) => const XTHomePage());
+          settings: settings,
+          pageBuilder: (_, __, ___) => const XTChatBotPage());
     }
     return func(settings, uniqueId);
   }
