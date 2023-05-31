@@ -38,6 +38,7 @@ dependencies:
   flutter_bloc: ^8.1.0
   equatable: ^2.0.5
   lottie: ^2.3.2
+  bookfx: ^0.0.2
 
 dev_dependencies:
   flutter_test:

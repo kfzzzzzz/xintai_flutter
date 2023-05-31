@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
 import 'package:xintai_flutter/GPTPage/GPTPage.dart';
 import 'package:xintai_flutter/XTHomePage/XTHomePage.dart';
+import 'package:xintai_flutter/riveTest/bookTest.dart';
 import 'package:xintai_flutter/riveTest/riveTest.dart';
 import 'package:xintai_flutter/testPage/MyHomePage.dart';
 
@@ -55,7 +56,7 @@ class _MyAppState extends State<MyApp> {
     if (func == null) {
       return PageRouteBuilder<dynamic>(
           settings: settings,
-          pageBuilder: (_, __, ___) => const XTChatBotPage());
+          pageBuilder: (_, __, ___) => const CustomWidget());
     }
     return func(settings, uniqueId);
   }

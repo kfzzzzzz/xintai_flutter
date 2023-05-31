@@ -25,6 +25,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "8.1.1"
+  bookfx:
+    dependency: "direct main"
+    description:
+      name: bookfx
+      sha256: "115e64b263d077943440c885acf4a249bcdb1ba5a2ad26c41b9c027292fa0010"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.2"
   boolean_selector:
     dependency: transitive
     description:

@@ -1,16 +1,16 @@
+import 'package:bookfx/bookfx.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
-import 'package:bookfx/bookfx.dart';
 
-class SimpleStateMachine extends StatefulWidget {
-  const SimpleStateMachine({Key? key}) : super(key: key);
+/// 自定义
+class CustomWidget extends StatefulWidget {
+  const CustomWidget({Key? key}) : super(key: key);
 
   @override
-  _SimpleStateMachineState createState() => _SimpleStateMachineState();
+  State<CustomWidget> createState() => _CustomWidgetState();
 }
 
-class _SimpleStateMachineState extends State<SimpleStateMachine> {
-  //SMITrigger? _boolExampleInput;
+class _CustomWidgetState extends State<CustomWidget> {
   BookController bookController = BookController();
 
   List rives = [
@@ -24,12 +24,6 @@ class _SimpleStateMachineState extends State<SimpleStateMachine> {
     'assets/fish8.riv',
   ];
 
-  // void _onRiveInit(Artboard artboard) {
-  //   final controller =
-  //       StateMachineController.fromArtboard(artboard, 'State Machine 1');
-  //   artboard.addController(controller!);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Placeholder(
@@ -38,23 +32,18 @@ class _SimpleStateMachineState extends State<SimpleStateMachine> {
               MediaQuery.of(context).size.height),
           pageCount: rives.length,
           currentPage: (index) {
-            print("${index}");
             return RiveAnimation.asset(
               rives[index],
-              //'assets/fish3.riv',
-              // onInit: _onRiveInit,
+              //onInit: _onRiveInit,
             );
           },
           lastCallBack: (index) {
-            print("KFZTEST:lastCallBackprint('lastCallBack $index');");
-            if (index == 0) {
-              return;
-            }
             setState(() {});
+            print('xxxxxx上一页  $index');
           },
           nextCallBack: (index) {
             setState(() {});
-            print("KFZTEST:nextCallBackprint('next $index');");
+            print('next $index');
           },
           nextPage: (index) {
             return RiveAnimation.asset(
