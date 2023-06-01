@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
-import 'package:xintai_flutter/NativeMessage/MessageManager.dart';
 
 class GPTPage extends StatelessWidget {
   const GPTPage({Key? key}) : super(key: key);

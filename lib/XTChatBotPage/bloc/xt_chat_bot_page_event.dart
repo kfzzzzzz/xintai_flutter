@@ -7,6 +7,18 @@ abstract class XtChatBotPageEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class XtChatBotChangeSenceEvent extends XtChatBotPageEvent {
-  const XtChatBotChangeSenceEvent() : super();
+class XtChatBotInitialEvent extends XtChatBotPageEvent {
+  const XtChatBotInitialEvent() : super();
+}
+
+class XtChatBotChangeScenceEvent extends XtChatBotPageEvent {
+  const XtChatBotChangeScenceEvent() : super();
+}
+
+class XtChatBotTapChatEvent extends XtChatBotPageEvent {
+  final String inputMessage;
+  const XtChatBotTapChatEvent({required this.inputMessage}) : super();
+
+  @override
+  List<Object> get props => [inputMessage];
 }

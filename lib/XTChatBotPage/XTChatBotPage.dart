@@ -23,6 +23,7 @@ class _XTChatBotPageState extends State<XTChatBotPage>
   void initState() {
     super.initState();
     _xtChatBotPageBloc = XtChatBotPageBloc();
+    _xtChatBotPageBloc.add(const XtChatBotInitialEvent());
     _clickAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 700),
@@ -55,6 +56,13 @@ class _XTChatBotPageState extends State<XTChatBotPage>
         ],
         child: BlocBuilder<XtChatBotPageBloc, XtChatBotPageState>(
           builder: (context, state) {
+            String answerText = '';
+
+            if (state is XtChatBotPageContent) {
+              answerText = state.messageContent;
+            } else {
+              answerText = '抱歉出错啦';
+            }
             return Listener(
               onPointerDown: (details) {
                 setState(() {
@@ -95,7 +103,7 @@ class _XTChatBotPageState extends State<XTChatBotPage>
                         color: Colors.pink.shade400,
                         onPressed: () {
                           BlocProvider.of<XtChatBotPageBloc>(context).add(
-                            const XtChatBotChangeSenceEvent(),
+                            const XtChatBotChangeScenceEvent(),
                           );
                         },
                       ),
@@ -107,7 +115,7 @@ class _XTChatBotPageState extends State<XTChatBotPage>
                         height: 100.px,
                         width: screenWidth - 20.px,
                         child: CustomPaint(
-                          painter: MyPainter(),
+                          painter: BottomChatRect(),
                           child: Stack(children: [
                             Positioned(
                                 left: 32.px,
@@ -115,6 +123,11 @@ class _XTChatBotPageState extends State<XTChatBotPage>
                                 child: GestureDetector(
                                   onTap: () {
                                     print("KFZTEST:点击聊天");
+                                    BlocProvider.of<XtChatBotPageBloc>(context)
+                                        .add(
+                                      const XtChatBotTapChatEvent(
+                                          inputMessage: '你好呀'),
+                                    );
                                   },
                                   child: Row(
                                     children: [
@@ -176,8 +189,7 @@ class _XTChatBotPageState extends State<XTChatBotPage>
                                       ),
                                     ),
                                     TextSpan(
-                                      text:
-                                          '你为什么今天晚上不一起吃饭你为什么今天晚上不一起吃饭你为什么今天晚上不一起吃饭你为什么今天晚上不一起吃饭你为什么今天晚上不一起吃饭你为什么今天晚上不一起吃饭',
+                                      text: answerText,
                                       style: TextStyle(
                                         color: Colors.pink.shade600,
                                         fontSize: 14.sp,
@@ -220,7 +232,8 @@ class _XTChatBotPageState extends State<XTChatBotPage>
   }
 }
 
-class MyPainter extends CustomPainter {
+//底部的聊天框
+class BottomChatRect extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
-import 'package:xintai_flutter/GPTPage/GPTPage.dart';
+import 'package:xintai_flutter/GPTManager/GPTPage.dart';
 import 'package:xintai_flutter/XTHomePage/XTHomePage.dart';
 import 'package:xintai_flutter/riveTest/riveTest.dart';
 import 'package:xintai_flutter/testPage/MyHomePage.dart';
