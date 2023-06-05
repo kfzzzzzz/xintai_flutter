@@ -13,5 +13,6 @@ class XtChatBotPageContent extends XtChatBotPageState {
 }
 
 class XtChatBotPageFaild extends XtChatBotPageState {
-  XtChatBotPageFaild() : super();
+  final String errormessage;
+  XtChatBotPageFaild(this.errormessage) : super();
 }

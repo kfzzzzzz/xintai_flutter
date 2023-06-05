@@ -20,7 +20,7 @@ class XtChatBotPageBloc extends Bloc<XtChatBotPageEvent, XtChatBotPageState> {
       await gptManager.getGPTAPIKey().then((value) {
         emit(XtChatBotPageContent(selectedBackGoundImage, messageContent));
       }).onError((error, stackTrace) {
-        emit(XtChatBotPageFaild());
+        emit(XtChatBotPageFaild(error.toString()));
       });
     });
     on<XtChatBotTapChatEvent>((event, emit) async {
@@ -28,7 +28,7 @@ class XtChatBotPageBloc extends Bloc<XtChatBotPageEvent, XtChatBotPageState> {
         messageContent = value;
         emit(XtChatBotPageContent(selectedBackGoundImage, messageContent));
       }).onError((error, stackTrace) {
-        emit(XtChatBotPageFaild());
+        emit(XtChatBotPageFaild(error.toString()));
       });
     });
     on<XtChatBotChangeScenceEvent>((event, emit) {

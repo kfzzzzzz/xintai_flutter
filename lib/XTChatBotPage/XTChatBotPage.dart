@@ -43,6 +43,12 @@ class _XTChatBotPageState extends State<XTChatBotPage>
     super.dispose();
   }
 
+  void _handleTapChat(String inputMessage) {
+    _xtChatBotPageBloc.add(
+      XtChatBotTapChatEvent(inputMessage: inputMessage),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -60,6 +66,8 @@ class _XTChatBotPageState extends State<XTChatBotPage>
 
             if (state is XtChatBotPageContent) {
               answerText = state.messageContent;
+            } else if (state is XtChatBotPageFaild) {
+              answerText = '出错啦:${state.errormessage}';
             } else {
               answerText = '抱歉出错啦';
             }
@@ -122,11 +130,62 @@ class _XTChatBotPageState extends State<XTChatBotPage>
                                 bottom: 8.px,
                                 child: GestureDetector(
                                   onTap: () {
-                                    print("KFZTEST:点击聊天");
-                                    BlocProvider.of<XtChatBotPageBloc>(context)
-                                        .add(
-                                      const XtChatBotTapChatEvent(
-                                          inputMessage: '你好呀'),
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Theme(
+                                          data: Theme.of(context).copyWith(
+                                            dialogBackgroundColor:
+                                                const Color.fromARGB(
+                                                        255, 244, 208, 218)
+                                                    .withOpacity(
+                                                        0.5), // 粉红色半透明底色
+                                          ),
+                                          child: AlertDialog(
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                color: const Color.fromARGB(255,
+                                                    247, 101, 140), // 深红色边框颜色
+                                                width: 2.px, // 边框宽度
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      8.px), // 边框圆角
+                                            ),
+                                            title: const Text(
+                                              '我:',
+                                            ),
+                                            titleTextStyle: TextStyle(
+                                              color: Colors.pink.shade600,
+                                              fontSize: 16.sp,
+                                              fontFamily: 'PingFang_semibold',
+                                            ),
+                                            content: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.px),
+                                                color: const Color.fromARGB(
+                                                        255, 244, 208, 218)
+                                                    .withOpacity(0.5),
+                                              ),
+                                              child: TextField(
+                                                cursorColor:
+                                                    Colors.pink.shade600,
+                                                style: TextStyle(
+                                                  color: Colors.pink.shade600,
+                                                  fontSize: 14.sp,
+                                                  fontFamily:
+                                                      'PingFang_regular',
+                                                ),
+                                                onSubmitted: (value) {
+                                                  Navigator.pop(context);
+                                                  _handleTapChat(value);
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     );
                                   },
                                   child: Row(
@@ -198,7 +257,7 @@ class _XTChatBotPageState extends State<XTChatBotPage>
                                     ),
                                   ],
                                 ),
-                                textAlign: TextAlign.center,
+                                textAlign: TextAlign.left,
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                               ),
