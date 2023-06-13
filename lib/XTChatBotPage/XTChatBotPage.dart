@@ -87,14 +87,16 @@ class _XTChatBotPageState extends State<XTChatBotPage>
                 height: screenHeight,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('assets/Bgtest.jpg'),
+                      image: AssetImage('assets/background4.png'),
                       fit: BoxFit.cover),
                 ),
                 child: Stack(
                   children: [
                     Positioned(
+                      left: -40.px,
                       child: SizedBox(
-                        //height: 400.px,
+                        height: 650.px,
+                        width: 500.px,
                         child: RiveAnimation.asset(
                           'assets/ChatBot.riv',
                           onInit: _onRiveInit,

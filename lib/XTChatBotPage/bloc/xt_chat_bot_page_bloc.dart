@@ -13,7 +13,7 @@ enum XTChatBotBackGroundImage {
 
 class XtChatBotPageBloc extends Bloc<XtChatBotPageEvent, XtChatBotPageState> {
   int selectedBackGoundImage = 0;
-  String messageContent = 'aaaa';
+  String messageContent = '欢迎回来~';
   OpenAIManager gptManager = OpenAIManager();
   XtChatBotPageBloc() : super(XtChatBotPageInitial()) {
     on<XtChatBotInitialEvent>((event, emit) async {
