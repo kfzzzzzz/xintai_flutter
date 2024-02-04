@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lottie/lottie.dart';
 import 'package:xintai_flutter/AIPhotoPage/CivitaiModel.dart';
 import 'package:xintai_flutter/utils/XTScreenAdaptation.dart';
@@ -17,6 +19,7 @@ class AIPhotoPage extends StatefulWidget {
 }
 
 class _AIPhotoPage extends State<AIPhotoPage> with TickerProviderStateMixin {
+  final lottieAnimation = rootBundle.loadString('assets/Loading.json');
   late final AiPhotoPageBloc _AiPhotoPageBloc;
   late ScrollController _scrollController;
   late AnimationController _clickAnimationController;
@@ -93,67 +96,116 @@ class _AIPhotoPage extends State<AIPhotoPage> with TickerProviderStateMixin {
           builder: (context, state) {
             if (state is AiPhotoPageContent) {
               imageItems = state.imageItems;
-              return Stack(
-                children: [
-                  Column(
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                          padding: const EdgeInsets.all(0.0),
+              return Scaffold(
+                backgroundColor: Colors.white,
+                body: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Expanded(
+                            child: MasonryGridView.count(
+                          padding: const EdgeInsets.only(top: 5.0),
                           controller: _scrollController,
-                          shrinkWrap: true,
                           itemCount: imageItems.length + 1,
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 4,
+                          crossAxisSpacing: 4,
                           itemBuilder: (context, index) {
-                            if (index < imageItems.length) {
-                              return FadeInImage.memoryNetwork(
-                                width: screenWidth,
-                                image: imageItems[index].url,
-                                fit: BoxFit.contain,
-                                placeholder: kTransparentImage,
-                                imageErrorBuilder:
-                                    (context, error, stackTrace) {
-                                  return const SizedBox(
-                                    child: Placeholder(),
-                                  );
-                                },
-                              );
-                            } else {
-                              return const Center(
-                                child: CircularProgressIndicator(), // 加载指示器
-                              );
+                            if (index == imageItems.length) {
+                              // 判断在builder第几个，如果到达最后一个判断是否还需要请求数据
+                              //加载时显示loading
+                              return Container(
+                                  padding: const EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  child: Container(
+                                      padding: EdgeInsets.only(top: 5.0.px),
+                                      child: LottieBuilder.asset(
+                                        'assets/Loading.json',
+                                        repeat: true,
+                                        width: screenWidth,
+                                        height: 40.px,
+                                        fit: BoxFit.contain,
+                                      )));
                             }
+
+                            return FadeInImage.memoryNetwork(
+                              width: screenWidth,
+                              image: imageItems[index].url,
+                              fit: BoxFit.contain,
+                              placeholder: kTransparentImage,
+                              imageErrorBuilder: (context, error, stackTrace) {
+                                return SizedBox(
+                                  child: Image.asset(
+                                      'assets/ImageDownloadFail.png'),
+                                );
+                              },
+                            );
                           },
+                        )
+                            // ListView.builder(
+                            //   padding: const EdgeInsets.all(0.0),
+                            //   controller: _scrollController,
+                            //   shrinkWrap: true,
+                            //   itemCount: imageItems.length + 1,
+                            //   itemBuilder: (context, index) {
+                            // if (index < imageItems.length) {
+                            // return FadeInImage.memoryNetwork(
+                            //   width: screenWidth,
+                            //   image: imageItems[index].url,
+                            //   fit: BoxFit.contain,
+                            //   placeholder: kTransparentImage,
+                            //   imageErrorBuilder:
+                            //       (context, error, stackTrace) {
+                            //     return SizedBox(
+                            //       child: Image.asset(
+                            //           'assets/ImageDownloadFail.png'),
+                            //     );
+                            //   },
+                            // );
+                            //     } else {
+                            //       return Container(
+                            //           padding: EdgeInsets.only(top: 5.0.px),
+                            //           child: LottieBuilder.asset(
+                            //             'assets/Loading.json',
+                            //             repeat: true,
+                            //             width: screenWidth,
+                            //             height: 40.px,
+                            //             fit: BoxFit.contain,
+                            //           ));
+                            //     }
+                            //   },
+                            // ),
+                            ),
+                      ],
+                    ),
+                    Positioned(
+                      right: 10.px,
+                      top: MediaQuery.of(context).padding.top + 10.px,
+                      child: IconButton(
+                        iconSize: 40.px,
+                        icon: const Icon(Icons.brightness_high_rounded),
+                        color: Colors.pink.shade400,
+                        onPressed: () {
+                          print("KFZTEST:press");
+                        },
+                      ),
+                    ),
+                    Positioned(
+                      left: _clickPosition.dx - 20.px,
+                      top: _clickPosition.dy - 20.px,
+                      child: IgnorePointer(
+                        child: Lottie.asset(
+                          "assets/dianji.json",
+                          width: 60.px,
+                          height: 60.px,
+                          repeat: false,
+                          fit: BoxFit.fill,
+                          controller: _clickAnimationController,
                         ),
                       ),
-                    ],
-                  ),
-                  Positioned(
-                    right: 10.px,
-                    top: MediaQuery.of(context).padding.top + 10.px,
-                    child: IconButton(
-                      iconSize: 40.px,
-                      icon: const Icon(Icons.brightness_high_rounded),
-                      color: Colors.pink.shade400,
-                      onPressed: () {
-                        print("KFZTEST:press");
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    left: _clickPosition.dx - 20.px,
-                    top: _clickPosition.dy - 20.px,
-                    child: IgnorePointer(
-                      child: Lottie.asset(
-                        "assets/dianji.json",
-                        width: 60.px,
-                        height: 60.px,
-                        repeat: false,
-                        fit: BoxFit.fill,
-                        controller: _clickAnimationController,
-                      ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               );
             } else {
               return const Scaffold(
