@@ -33,12 +33,15 @@ dependencies:
     git:
         url: 'https://github.com/alibaba/flutter_boost.git'
         ref: '4.2.1'
-  rive: ^0.9.1
+  rive: ^0.12.4
   flutter_screenutil: ^5.6.0
   flutter_bloc: ^8.1.0
   equatable: ^2.0.5
   lottie: ^2.3.2
-  dart_openai: ^1.9.9
+  dart_openai: ^2.0.0
+  http: ^0.13.6
+  bloc: ^8.1.2
+  transparent_image: ^2.0.1
 
 dev_dependencies:
   flutter_test:

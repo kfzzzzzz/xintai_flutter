@@ -17,6 +17,7 @@ class XtChatBotPageBloc extends Bloc<XtChatBotPageEvent, XtChatBotPageState> {
   OpenAIManager gptManager = OpenAIManager();
   XtChatBotPageBloc() : super(XtChatBotPageInitial()) {
     on<XtChatBotInitialEvent>((event, emit) async {
+      //await AIPhotoManager().getCivitaiKey().then((value) {
       await gptManager.getGPTAPIKey().then((value) {
         emit(XtChatBotPageContent(selectedBackGoundImage, messageContent));
       }).onError((error, stackTrace) {
