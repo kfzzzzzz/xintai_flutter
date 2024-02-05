@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lottie/lottie.dart';
 import 'package:xintai_flutter/AIPhotoPage/CivitaiModel.dart';
+import 'package:xintai_flutter/AIPhotoPage/page/AIFullPhotoPage.dart';
 import 'package:xintai_flutter/utils/XTScreenAdaptation.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -128,54 +129,41 @@ class _AIPhotoPage extends State<AIPhotoPage> with TickerProviderStateMixin {
                                       )));
                             }
 
-                            return FadeInImage.memoryNetwork(
-                              width: screenWidth,
-                              image: imageItems[index].url,
-                              fit: BoxFit.contain,
-                              placeholder: kTransparentImage,
-                              imageErrorBuilder: (context, error, stackTrace) {
-                                return SizedBox(
-                                  child: Image.asset(
-                                      'assets/ImageDownloadFail.png'),
+                            return GestureDetector(
+                              onTap: () {
+                                print('KFZTEST:2222');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AIFullPhotoPage(
+                                          ImageItem: imageItems[index])),
                                 );
                               },
+                              child: FadeInImage.memoryNetwork(
+                                width: screenWidth / 2,
+                                height: imageItems[index].height /
+                                    imageItems[index].width *
+                                    screenWidth /
+                                    2,
+                                image: imageItems[index].url,
+                                fit: BoxFit.contain,
+                                placeholder: kTransparentImage,
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) {
+                                  return SizedBox(
+                                    height: imageItems[index].height /
+                                        imageItems[index].width *
+                                        screenWidth /
+                                        2,
+                                    width: screenWidth / 2,
+                                    child: Image.asset(
+                                        'assets/ImageDownloadFail.png'),
+                                  );
+                                },
+                              ),
                             );
                           },
-                        )
-                            // ListView.builder(
-                            //   padding: const EdgeInsets.all(0.0),
-                            //   controller: _scrollController,
-                            //   shrinkWrap: true,
-                            //   itemCount: imageItems.length + 1,
-                            //   itemBuilder: (context, index) {
-                            // if (index < imageItems.length) {
-                            // return FadeInImage.memoryNetwork(
-                            //   width: screenWidth,
-                            //   image: imageItems[index].url,
-                            //   fit: BoxFit.contain,
-                            //   placeholder: kTransparentImage,
-                            //   imageErrorBuilder:
-                            //       (context, error, stackTrace) {
-                            //     return SizedBox(
-                            //       child: Image.asset(
-                            //           'assets/ImageDownloadFail.png'),
-                            //     );
-                            //   },
-                            // );
-                            //     } else {
-                            //       return Container(
-                            //           padding: EdgeInsets.only(top: 5.0.px),
-                            //           child: LottieBuilder.asset(
-                            //             'assets/Loading.json',
-                            //             repeat: true,
-                            //             width: screenWidth,
-                            //             height: 40.px,
-                            //             fit: BoxFit.contain,
-                            //           ));
-                            //     }
-                            //   },
-                            // ),
-                            ),
+                        )),
                       ],
                     ),
                     Positioned(
