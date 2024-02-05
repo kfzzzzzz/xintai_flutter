@@ -36,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _batteryLevel = batteryLevel;
     });
+    Navigator.of(context).pop();
   }
 
   void _incrementCounter() {

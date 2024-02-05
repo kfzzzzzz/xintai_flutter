@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:xintai_flutter/AIPhotoPage/CivitaiModel.dart';
+import 'package:flutter_boost/flutter_boost.dart';
 
 class AIFullPhotoPage extends StatefulWidget {
-  const AIFullPhotoPage({super.key, required this.ImageItem});
+  const AIFullPhotoPage({super.key, required this.ImageUrl});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final CivitaiImageItem ImageItem;
+  final String? ImageUrl;
 
   @override
   State<AIFullPhotoPage> createState() => _AIFullPhotoPage();
@@ -23,20 +14,24 @@ class _AIFullPhotoPage extends State<AIFullPhotoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Center(
-            child: Image.network(widget.ImageItem.url),
-          ),
-          Positioned(
-            child: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Center(
+              child: Image.network(widget.ImageUrl ?? ""),
             ),
-          )
-        ],
+            Positioned(
+              child: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  print("KFZTEST:");
+                  print(widget.ImageUrl);
+                  BoostNavigator.instance.pop();
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

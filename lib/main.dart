@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
+import 'package:xintai_flutter/AIPhotoPage/page/AIFullPhotoPage.dart';
 import 'package:xintai_flutter/AIPhotoPage/page/AIPhotoPage.dart';
 import 'package:xintai_flutter/GPTManager/GPTPage.dart';
 import 'package:xintai_flutter/XTHomePage/XTHomePage.dart';
@@ -51,7 +52,14 @@ class _MyAppState extends State<MyApp> {
     'AIPhotoPage': (settings, uniqueId) {
       return PageRouteBuilder<dynamic>(
           settings: settings, pageBuilder: (_, __, ___) => const AIPhotoPage());
-    }
+    },
+    'AIFullPhotoPage': (settings, uniqueId) {
+      Map<String, dynamic>? args = settings.arguments as Map<String, dynamic>?;
+      String? imageUrl = args?['ImageUrl'];
+      return PageRouteBuilder<dynamic>(
+          settings: settings,
+          pageBuilder: (_, __, ___) => AIFullPhotoPage(ImageUrl: imageUrl));
+    },
   };
 
   Route<dynamic>? routeFactory(RouteSettings settings, String? uniqueId) {

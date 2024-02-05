@@ -75,7 +75,7 @@ class _XTHomePageState extends State<XTHomePage> with TickerProviderStateMixin {
         // 播放音效
       },
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.red,
         body: Center(
           child: GestureDetector(
             onTap: _hitTree,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boost/flutter_boost.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lottie/lottie.dart';
 import 'package:xintai_flutter/AIPhotoPage/CivitaiModel.dart';
-import 'package:xintai_flutter/AIPhotoPage/page/AIFullPhotoPage.dart';
 import 'package:xintai_flutter/utils/XTScreenAdaptation.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -26,6 +26,15 @@ class _AIPhotoPage extends State<AIPhotoPage> with TickerProviderStateMixin {
   late AnimationController _clickAnimationController;
   Offset _clickPosition = Offset.zero;
   Offset? _downPosition;
+  static const platform = MethodChannel('xinTai/MethodChannel');
+
+  Future<void> pushFlutterPage(String ImageUrl) async {
+    try {
+      final String result =
+          await platform.invokeMethod('pushFlutterPage', ImageUrl);
+      print(result);
+    } on PlatformException catch (e) {}
+  }
 
   @override
   void initState() {
@@ -132,12 +141,17 @@ class _AIPhotoPage extends State<AIPhotoPage> with TickerProviderStateMixin {
                             return GestureDetector(
                               onTap: () {
                                 print('KFZTEST:2222');
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AIFullPhotoPage(
-                                          ImageItem: imageItems[index])),
-                                );
+                                pushFlutterPage(imageItems[index].url);
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) => AIFullPhotoPage(
+                                //           ImageItem: imageItems[index])),
+                                // );
+                                // BoostNavigator.instance.push("AIFullPhotoPage",
+                                //     arguments: {"url": imageItems[index].url},
+                                //     withContainer: true,
+                                //     opaque: false);
                               },
                               child: FadeInImage.memoryNetwork(
                                 width: screenWidth / 2,
