@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_boost/flutter_boost.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lottie/lottie.dart';
 import 'package:xintai_flutter/AIPhotoPage/CivitaiModel.dart';
@@ -33,7 +32,9 @@ class _AIPhotoPage extends State<AIPhotoPage> with TickerProviderStateMixin {
       final String result =
           await platform.invokeMethod('pushFlutterPage', ImageUrl);
       print(result);
-    } on PlatformException catch (e) {}
+    } on PlatformException catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -140,18 +141,7 @@ class _AIPhotoPage extends State<AIPhotoPage> with TickerProviderStateMixin {
 
                             return GestureDetector(
                               onTap: () {
-                                print('KFZTEST:2222');
                                 pushFlutterPage(imageItems[index].url);
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) => AIFullPhotoPage(
-                                //           ImageItem: imageItems[index])),
-                                // );
-                                // BoostNavigator.instance.push("AIFullPhotoPage",
-                                //     arguments: {"url": imageItems[index].url},
-                                //     withContainer: true,
-                                //     opaque: false);
                               },
                               child: FadeInImage.memoryNetwork(
                                 width: screenWidth / 2,
