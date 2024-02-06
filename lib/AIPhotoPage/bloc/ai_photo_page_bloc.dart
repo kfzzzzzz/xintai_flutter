@@ -11,7 +11,7 @@ class AiPhotoPageBloc extends Bloc<AiPhotoPageEvent, AiPhotoPageState> {
     int page = 1;
     List<CivitaiImageItem> imageItems = [];
     on<AiPhotoPageInitialEvent>((event, emit) async {
-      await AIPhotoManager().fetchData(page).then((value) {
+      await AIPhotoManager().getCivitaiModel(page).then((value) {
         page++;
         imageItems = value;
         emit(AiPhotoPageContent(imageItems));
@@ -21,7 +21,7 @@ class AiPhotoPageBloc extends Bloc<AiPhotoPageEvent, AiPhotoPageState> {
       });
     });
     on<AiPhotoPageLoadEvent>((event, emit) async {
-      await AIPhotoManager().fetchData(page).then((value) {
+      await AIPhotoManager().getCivitaiModel(page).then((value) {
         page++;
         imageItems = imageItems + value;
         emit(AiPhotoPageContent(imageItems));

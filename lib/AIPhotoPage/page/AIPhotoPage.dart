@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lottie/lottie.dart';
 import 'package:xintai_flutter/AIPhotoPage/CivitaiModel.dart';
+import 'package:xintai_flutter/AIPhotoPage/page/AIPhotoSearchSettingPage.dart';
 import 'package:xintai_flutter/utils/XTScreenAdaptation.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -123,8 +126,6 @@ class _AIPhotoPage extends State<AIPhotoPage> with TickerProviderStateMixin {
                           crossAxisSpacing: 4,
                           itemBuilder: (context, index) {
                             if (index == imageItems.length) {
-                              // 判断在builder第几个，如果到达最后一个判断是否还需要请求数据
-                              //加载时显示loading
                               return Container(
                                   padding: const EdgeInsets.all(16.0),
                                   alignment: Alignment.center,
@@ -138,33 +139,34 @@ class _AIPhotoPage extends State<AIPhotoPage> with TickerProviderStateMixin {
                                         fit: BoxFit.contain,
                                       )));
                             }
-
                             return GestureDetector(
                               onTap: () {
                                 pushFlutterPage(imageItems[index].url);
                               },
-                              child: FadeInImage.memoryNetwork(
-                                width: screenWidth / 2,
-                                height: imageItems[index].height /
-                                    imageItems[index].width *
-                                    screenWidth /
-                                    2,
-                                image: imageItems[index].url,
-                                fit: BoxFit.contain,
-                                placeholder: kTransparentImage,
-                                imageErrorBuilder:
-                                    (context, error, stackTrace) {
-                                  return SizedBox(
-                                    height: imageItems[index].height /
-                                        imageItems[index].width *
-                                        screenWidth /
-                                        2,
-                                    width: screenWidth / 2,
-                                    child: Image.asset(
-                                        'assets/ImageDownloadFail.png'),
-                                  );
-                                },
-                              ),
+                              child: imageItems[index].nsfw == 'None'
+                                  ? const SizedBox.shrink()
+                                  : FadeInImage.memoryNetwork(
+                                      width: screenWidth / 2,
+                                      height: imageItems[index].height /
+                                          imageItems[index].width *
+                                          screenWidth /
+                                          2,
+                                      image: imageItems[index].url,
+                                      fit: BoxFit.contain,
+                                      placeholder: kTransparentImage,
+                                      imageErrorBuilder:
+                                          (context, error, stackTrace) {
+                                        return SizedBox(
+                                          height: imageItems[index].height /
+                                              imageItems[index].width *
+                                              screenWidth /
+                                              2,
+                                          width: screenWidth / 2,
+                                          child: Image.asset(
+                                              'assets/ImageDownloadFail.png'),
+                                        );
+                                      },
+                                    ),
                             );
                           },
                         )),
@@ -175,9 +177,10 @@ class _AIPhotoPage extends State<AIPhotoPage> with TickerProviderStateMixin {
                       top: MediaQuery.of(context).padding.top + 10.px,
                       child: IconButton(
                         iconSize: 40.px,
-                        icon: const Icon(Icons.brightness_high_rounded),
+                        icon: const Icon(Icons.search),
                         color: Colors.pink.shade400,
                         onPressed: () {
+                          showTransparentOverlay(context);
                           print("KFZTEST:press");
                         },
                       ),

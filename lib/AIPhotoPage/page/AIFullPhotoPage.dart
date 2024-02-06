@@ -24,7 +24,6 @@ class _AIFullPhotoPage extends State<AIFullPhotoPage> {
               child: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
-                  print("KFZTEST:");
                   print(widget.ImageUrl);
                   BoostNavigator.instance.pop();
                 },
