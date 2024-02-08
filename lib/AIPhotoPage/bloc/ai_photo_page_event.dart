@@ -15,6 +15,12 @@ class AiPhotoPageLoadEvent extends AiPhotoPageEvent {
   const AiPhotoPageLoadEvent() : super();
 }
 
+class AiPhotoPageSettingEvent extends AiPhotoPageEvent {
+  final String sort;
+  final List<int> NSFW;
+  const AiPhotoPageSettingEvent(this.sort, this.NSFW) : super();
+}
+
 // class AiPhotoPageInitialEvent extends AiPhotoPageEvent {
 //   const XtChatBotChangeScenceEvent() : super();
 // }

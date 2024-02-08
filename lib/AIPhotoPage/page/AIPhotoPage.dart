@@ -142,10 +142,12 @@ class _AIPhotoPage extends State<AIPhotoPage> with TickerProviderStateMixin {
                             return GestureDetector(
                               onTap: () {
                                 pushFlutterPage(imageItems[index].url);
+                                //print(imageItems[index].nsfw);
                               },
-                              child: imageItems[index].nsfw == 'None'
-                                  ? const SizedBox.shrink()
-                                  : FadeInImage.memoryNetwork(
+                              child: state.NSFW.any((tempindex) =>
+                                      CivitaiNSFWParm[tempindex] ==
+                                      imageItems[index].nsfw)
+                                  ? FadeInImage.memoryNetwork(
                                       width: screenWidth / 2,
                                       height: imageItems[index].height /
                                           imageItems[index].width *
@@ -166,7 +168,8 @@ class _AIPhotoPage extends State<AIPhotoPage> with TickerProviderStateMixin {
                                               'assets/ImageDownloadFail.png'),
                                         );
                                       },
-                                    ),
+                                    )
+                                  : const SizedBox.shrink(),
                             );
                           },
                         )),

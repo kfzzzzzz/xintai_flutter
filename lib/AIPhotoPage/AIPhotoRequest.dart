@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:xintai_flutter/AIPhotoPage/CivitaiModel.dart';
@@ -33,9 +34,18 @@ class AIPhotoManager {
     }
   }
 
-  Future<List<CivitaiImageItem>> getCivitaiModel(int page) async {
-    final response = await http.get(Uri.parse(
-        'https://civitai.com/api/v1/models?nsfw=None&page=$page&limit=1'));
+  Future<List<CivitaiImageItem>> getCivitaiModel(int page, String sort) async {
+    late var response;
+    if (sort != 'Random') {
+      response = await http.get(Uri.parse(
+          'https://civitai.com/api/v1/models?page=$page&limit=1&sort=$sort'));
+      print('https://civitai.com/api/v1/models?page=$page&limit=1&sort=$sort');
+    } else {
+      int page = Random().nextInt(112290);
+      response = await http.get(
+          Uri.parse('https://civitai.com/api/v1/models?page=$page&limit=1'));
+      print('https://civitai.com/api/v1/models?page=$page&limit=1');
+    }
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
       final List<dynamic> items = jsonData['items'];

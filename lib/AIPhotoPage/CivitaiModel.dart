@@ -140,3 +140,26 @@ class CivitaiImageItem {
     );
   }
 }
+
+List<String> CivitaiSortParm = [
+  'Highest Rated',
+  'Most Downloaded',
+  'Newest',
+  'Random'
+];
+
+List<String> CivitaiNSFWParm = ['None', 'Soft', 'Mature', 'X'];
+
+class CivitaiManager {
+  static CivitaiManager? _instance;
+
+  String sort = "Random";
+  List<int> NSFW = [0];
+
+  CivitaiManager._();
+
+  factory CivitaiManager() {
+    _instance ??= CivitaiManager._();
+    return _instance!;
+  }
+}

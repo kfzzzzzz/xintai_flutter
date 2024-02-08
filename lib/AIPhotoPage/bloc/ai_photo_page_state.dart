@@ -13,8 +13,10 @@ class AiPhotoPageInitial extends AiPhotoPageState {}
 
 class AiPhotoPageContent extends AiPhotoPageState {
   final List<CivitaiImageItem> imageItems;
+  final List<int> NSFW;
+  final String sort;
 
-  AiPhotoPageContent(this.imageItems) : super();
+  AiPhotoPageContent(this.imageItems, this.NSFW, this.sort) : super();
 }
 
 class AiPhotoPageLoadFail extends AiPhotoPageState {}
